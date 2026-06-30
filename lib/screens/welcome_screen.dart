@@ -3,15 +3,14 @@ import 'package:flash_chat_flutter/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
-
   static String id = 'Welcome_screen';
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateMixin {
-
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation animation;
 
@@ -20,19 +19,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
     super.initState();
 
     controller = AnimationController(
-        duration: Duration(seconds: 1),
-        vsync: this
+      duration: Duration(seconds: 1),
+      vsync: this,
     );
 
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.forward();
 
-    controller.addListener((){
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.reverse(from: 1);
+      } else if (status == AnimationStatus.dismissed){
+        controller.forward();
+      }
+    });
+
+    controller.addListener(() {
       setState(() {});
       print(animation.value);
       print(controller.value);
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,16 +69,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                 ),
                 Text(
                   'Flash Chat',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                  style: TextStyle(fontSize: 45.0, fontWeight: FontWeight.w900),
                 ),
               ],
             ),
-            SizedBox(
-              height: 48.0,
-            ),
+            SizedBox(height: 48.0),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
@@ -74,13 +82,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, LoginScreen                                                                                                                                                                                                                                                                                                                                                                                                 .id);
+                    Navigator.pushNamed(context, LoginScreen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
+                  child: Text('Log In'),
                 ),
               ),
             ),
@@ -96,9 +102,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                   },
                   minWidth: 200.0,
                   height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
+                  child: Text('Register'),
                 ),
               ),
             ),
