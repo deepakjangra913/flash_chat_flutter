@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/**
+* This screen we're using to register the user
+* */
 class RegistrationScreen extends StatefulWidget {
 
   static String id = 'Registration_screen';
