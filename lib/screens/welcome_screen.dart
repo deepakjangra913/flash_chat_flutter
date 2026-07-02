@@ -3,6 +3,9 @@ import 'package:flash_chat_flutter/screens/login_screen.dart';
 import 'package:flash_chat_flutter/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 
+/*
+* This is the screen that is showing at first
+* */
 class WelcomeScreen extends StatefulWidget {
   static String id = 'Welcome_screen';
 
