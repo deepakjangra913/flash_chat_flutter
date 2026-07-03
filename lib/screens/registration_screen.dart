@@ -80,26 +80,42 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             SizedBox(
               height: 24.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Implement registration functionality.
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
+            GenericButton(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class GenericButton extends StatelessWidget {
+
+  late buttonText: String;
+
+  const GenericButton({
+    super.key,
+    this.String
+  });
+
+
+  @override                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ļll
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.all(Radius.circular(30.0)),
+        elevation: 5.0,
+        child: MaterialButton(
+          onPressed: () {
+            //Implement registration functionality.
+          },
+          minWidth: 200.0,
+          height: 42.0,
+          child: Text(
+            'Register',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );
