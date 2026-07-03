@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+/**
+ * Chat screen to send and receive messages
+ * */
 class ChatScreen extends StatefulWidget {
   static String id = 'Chat_screen';
 
