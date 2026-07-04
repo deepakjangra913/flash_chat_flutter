@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+/*
+* Rounded button using for multiple screens
+* */
 class Roundedbutton extends StatelessWidget {
   final String text;
   final Color color;
-  final VoidCallback onPressed()
+  final VoidCallback onPressed;
 
-  const Roundedbutton({super.key, required this.text, required this.colors});
+  const Roundedbutton({super.key, required this.text, required this.color, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +19,10 @@ class Roundedbutton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(30.0)),
         elevation: 5.0,
         child: MaterialButton(
-          onPressed: () {
-            //Implement registration functionality.
-          },
+          onPressed: onPressed,
           minWidth: 200.0,
           height: 42.0,
-          child: Text('Register', style: TextStyle(color: Colors.white)),
+          child: Text(text, style: TextStyle(color: Colors.white)),
         ),
       ),
     );
