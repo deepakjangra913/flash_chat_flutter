@@ -81,8 +81,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             SizedBox(
               height: 24.0,
             ),
-            RoundedButton(text:'Registration' , color: Colors.white, onPressed: () {
-
+            RoundedButton(text:'Register' , color: Colors.blueAccent, onPressed: () {
+              // TODO (implementation pending)
             }),
           ],
         ),
