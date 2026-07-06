@@ -35,14 +35,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               onChanged: (value) {
                 //Do something with the user input.
               },
-              decoration: kTextFieldDeclaration,
+              decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
             ),
             SizedBox(height: 8.0),
             TextField(
               onChanged: (value) {
                 //Do something with the user input.
               },
-              decoration: kTextFieldDeclaration,
+              decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your password'),
             ),
             SizedBox(height: 24.0),
             RoundedButton(
