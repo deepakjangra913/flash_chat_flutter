@@ -16,6 +16,9 @@ const kMessageContainerDecoration = BoxDecoration(
   border: Border(top: BorderSide(color: Colors.lightBlueAccent, width: 2.0)),
 );
 
+/*
+* Input box decoration that we're using for every screen
+* */
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
