@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/*
+* Generic rounded button that we're using everywhere
+* */
 class RoundedButton extends StatelessWidget {
   final String text;
   final Color color;
