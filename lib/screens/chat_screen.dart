@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
+User? loggedInUser;
 
 /**
  * Chat screen to send and receive messages
@@ -19,22 +20,20 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
   late String messageText;
 
   @override
   void initState() {
     super.initState();
-
     getCurrentUser();
   }
 
   Future<void> getCurrentUser() async {
     try {
-      final user = await _auth.currentUser;
+      final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
-        print(loggedInUser.email);
+        print(loggedInUser!.email);
       }
     } catch (e) {}
   }
@@ -103,7 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () {
                       _firestore.collection("messages").add({
                         'text': messageText,
-                        'sender': loggedInUser.email,
+                        'sender': loggedInUser!.email,
                       });
 
                       messageTextController.clear();
@@ -121,8 +120,6 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class MessagesStream extends StatelessWidget {
-  const MessagesStream({super.key});
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -135,17 +132,19 @@ class MessagesStream extends StatelessWidget {
             ),
           );
         }
-        final messages = snapshot.data?.docs;
+        final messages = snapshot.data?.docs.reversed;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages!) {
           final messageText = message.get('text');
           final sender = message.get('sender');
+          final currentUser = loggedInUser!.email;
           messageBubbles.add(
-            MessageBubble(message: messageText, sender: sender),
+            MessageBubble(message: messageText, sender: sender, isMe: currentUser == sender,),
           );
         }
         return Expanded(
           child: ListView(
+            reverse: true,
             padding: EdgeInsets.symmetric(vertical: 10.0),
             children: messageBubbles,
           ),
@@ -160,29 +159,30 @@ class MessagesStream extends StatelessWidget {
 class MessageBubble extends StatelessWidget {
   final String message;
   final String sender;
+  final bool isMe;
 
-  const MessageBubble({required this.message, required this.sender});
+  const MessageBubble({required this.message, required this.sender, required this.isMe});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(sender,
           style: TextStyle(fontSize: 12.0, color: Colors.black54),),
           Material(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.only(topLeft: isMe ? Radius.circular(30) : Radius.circular(0), bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30), topRight: isMe ? Radius.circular(0) : Radius.circular(30)),
             elevation: 5.0,
-            color: Colors.lightBlueAccent,
+            color: isMe ? Colors.lightBlueAccent : Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10.0,
                 horizontal: 20.0,
               ),
               child: Text(
-                style: TextStyle(color: Colors.white, fontSize: 15.0),
+                style: TextStyle(color: isMe ? Colors.white : Colors.black, fontSize: 15.0),
                 message,
               ),
             ),
