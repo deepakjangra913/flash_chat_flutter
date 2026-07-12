@@ -46,14 +46,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  // Future<void> getMessages() async {
-  //   print("method call");
-  //  final messages = await _firestore.collection('messages').get();
-  //  for(var message in messages.docs){
-  //     print(message.data());
-  //  }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,7 +174,7 @@ class MessageBubble extends StatelessWidget {
                 horizontal: 20.0,
               ),
               child: Text(
-                style: TextStyle(color: isMe ? Colors.white : Colors.black, fontSize: 15.0),
+                style: TextStyle(color: isMe ? Colors.white : Colors.black54, fontSize: 15.0),
                 message,
               ),
             ),
